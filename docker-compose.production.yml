@@ -1,0 +1,14 @@
+version: '3.5'
+services:
+  web:
+    restart: always
+    volumes:
+      - type: bind
+        source: /srv/starbound/
+        target: /srv/starbound/
+        read_only: true
+  nginx:
+    restart: always
+    ports:
+      - 5000:80
+      - 443:443

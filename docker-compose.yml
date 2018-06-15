@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  web:
+    image: 'starbound-dashboard'
+    volumes:
+      - ${STARBOUND_DASHBOARD_STORAGE:-/srv/starbound-dashboard}/etc:/etc/starbound-dashboard
+  nginx:
+    image: 'nginx'
+    depends_on:
+      - web
+    volumes:
+      - ${STARBOUND_DASHBOARD_STORAGE:-/srv/starbound-dashboard}/srv:/srv/starbound-dashboard
+      - type: bind
+        source: ${STARBOUND_DASHBOARD_STORAGE:-/srv/starbound-dashboard}/etc
+        target: /etc/starbound-dashboard
+        read_only: true
+      - type: bind
+        source: ${STARBOUND_DASHBOARD_STORAGE:-/srv/starbound-dashboard}/etc/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
