@@ -1,12 +1,13 @@
 import { Store } from 'vuex';
 import { PARSE_LOG, LogParseActionPayload, RootState } from '@/interface';
 
+const WEBSOCKET_PROTOCOL = location.protocol === 'https:' ? 'wss:' : 'ws:'
 export default class WebSocketHub {
   constructor(private store: Store<RootState>) {
 
   }
   public start() {
-    const ws = new WebSocket(`ws://${location.host}/ws`);
+    const ws = new WebSocket(`${WEBSOCKET_PROTOCOL}//${location.host}/ws`);
     ws.addEventListener('message', (event) => {
       this.onlog(event.data);
     });
