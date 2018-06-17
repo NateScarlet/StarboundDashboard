@@ -39,7 +39,7 @@ const store = new Vuex.Store<RootState>({
   },
 });
 
-type stateMap<T> = { [name in keyof T]: () => T[name] };
+type stateMap < T > = { [name in keyof T]: () => T[name] };
 
 interface RootComputedMixin extends DefaultComputed, stateMap<RootState> { }
 
@@ -54,7 +54,7 @@ function initStore() {
     const payload: LogParseActionPayload = { data: log, isInit: true };
     store.dispatch(PARSE_LOG, payload);
   });
-  store.dispatch(UPDATE_PLYAERS)
+  store.dispatch(UPDATE_PLYAERS);
 }
 
 initStore();
