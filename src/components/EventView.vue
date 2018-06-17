@@ -76,9 +76,6 @@ export default Vue.extend({
     position: absolute;
     right: 0;
     padding: 0 0.4em;
-    &:before {
-      content: "原因:";
-    }
   }
   .event {
     padding: 0.4em 0;
