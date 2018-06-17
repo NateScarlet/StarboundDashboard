@@ -20,8 +20,8 @@ const getters: GetterTree<PlayerState, RootState> = {
 };
 
 interface PlayerComputedMixin
-    extends DefaultComputed {
-    playerStore: () => PlayerState;
+  extends DefaultComputed {
+  playerStore: () => PlayerState;
 }
 
 export const playerComputedMinxin = {
@@ -53,7 +53,6 @@ const actions: ActionTree<PlayerState, RootState> = {
         });
         const payload: PlayerUpdateMutationPayload = { data: data };
         context.commit(UPDATE_PLYAERS, payload);
-        Message.success('在线玩家信息已更新');
       }
     ).catch(
       reason => {

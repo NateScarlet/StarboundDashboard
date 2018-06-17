@@ -1,12 +1,14 @@
 // Data types
-export interface ChatData {
-    user: string
+export interface LogEvent {
     time: string
-    message: string
     lineno: number
+    type: string
 }
-
-export type InfoData = ChatData;
+export interface ChatEvent extends LogEvent {
+    type: 'chat'
+    player: string
+    message: string
+}
 
 export interface Coordinate {
     x: number
@@ -20,6 +22,20 @@ export interface PlayerData {
     name: string
 }
 
+export interface DisconnectEvent extends LogEvent {
+    type: 'disconnect'
+    ip: string
+    player: string
+    playerId: string
+    reason: string
+}
+export interface ConnectEvent extends LogEvent {
+    type: 'connect'
+    ip: string
+    player: string
+    playerId: string
+}
+
 // States
 export interface RootState {
     servername: string
@@ -28,9 +44,12 @@ export interface RootState {
 }
 export interface LogState {
     logs: Array<string>;
-    chats: Array<ChatData>;
-    infos: Array<InfoData>;
-    planets: Array<PlanetData>
+    planets: Array<PlanetData>;
+    events: {
+        chat: Array<ChatEvent>;
+        disconnect: Array<DisconnectEvent>;
+        connect: Array<ConnectEvent>;
+    }
 }
 
 export interface PlayerState {
@@ -46,9 +65,7 @@ export interface CombinedRootState extends RootState {
 export const PUSH_PLANET = 'PUSH_PLANET';
 export const POP_PLANET = 'POP_PLANET';
 
-export const PUSH_CHAT = 'PUSH_CHAT';
-
-export const PUSH_INFO = 'PUSH_INFO';
+export const PUSH_LOG_EVENT = 'PUSH_LOG_EVENT';
 
 export const PUSH_LOG = 'PUSH_LOG';
 export const PARSE_LOG = 'PARSE_LOG';
@@ -71,12 +88,8 @@ export interface LogPushMutationPayload {
     data: string
 }
 
-export interface ChatPushMutationPayload {
-    data: ChatData
-}
-
-export interface InfoPushMutationPayload {
-    data: InfoData
+export interface LogEventPushMutationPayload {
+    event: LogEvent
 }
 
 export interface PlanetPushMutationPayload {

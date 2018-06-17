@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import { Button as ElButton, Card as ElCard } from 'element-ui';
+import { Button as ElButton, Card as ElCard, Message } from 'element-ui';
 
 import { playerComputedMinxin } from '@/store/player';
 import { UPDATE_PLYAERS, PlayerData } from '@/interface';
@@ -27,7 +27,9 @@ export default Vue.extend({
   },
   methods: {
     updatePlayerInfo() {
-      this.$store.dispatch(UPDATE_PLYAERS);
+      this.$store.dispatch(UPDATE_PLYAERS).then(() => {
+        Message.success('在线玩家信息已更新');
+      });
     },
   },
 });

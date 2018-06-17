@@ -3,17 +3,17 @@
     .left
       PlayerView
     .right
-      ChatView
+      EventView
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ChatView from '@/components/ChatView.vue';
+import EventView from '@/components/EventView.vue';
 import PlayerView from '@/components/PlayerView.vue';
 
 @Component({
   components: {
-  ChatView,
+  EventView,
   PlayerView
   }
   })
