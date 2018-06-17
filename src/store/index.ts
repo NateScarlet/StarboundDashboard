@@ -4,6 +4,8 @@ import Vuex, { mapState } from 'vuex';
 import { RootState, LogParseActionPayload, PARSE_LOG, REQUEST_NOTIFICATION_PERMISSION, UPDATE_NOTIFICATION_PERMISSION } from '@/interface';
 import { getDataFromAppElement } from '@/datatools';
 import logStore from './log';
+import playerStore from './player';
+
 import Notify from 'notifyjs';
 import { isSupportNotify } from '@/constant';
 
@@ -33,6 +35,7 @@ const store = new Vuex.Store<RootState>({
   },
   modules: {
     logStore,
+    playerStore,
   },
 });
 

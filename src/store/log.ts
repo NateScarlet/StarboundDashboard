@@ -61,7 +61,7 @@ const actions: ActionTree<LogState, RootState> = {
       };
       context.commit(PUSH_CHAT, chatPayload);
       if (!payload.isInit && isSupportNotify) {
-        new Notify(chatdata.user, { body: chatdata.message, timeout: isMobile ? 60 : 3, tag: JSON.stringify(chatdata), }).show();
+        new Notify(chatdata.user, { body: chatdata.message, timeout: isMobile ? 60 : 3, tag: JSON.stringify(chatdata) }).show();
       }
     }
   },

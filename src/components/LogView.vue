@@ -1,5 +1,5 @@
 <template lang="pug">
-  .chat-view
+  .log-view
     .chat(v-for='i, index in logStore.logs' :key='index') {{ i }}
 </template>
 
@@ -15,7 +15,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.chat-view {
+.log-view {
   text-align: left;
 }
 </style>

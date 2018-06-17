@@ -15,6 +15,11 @@ export interface Coordinate {
 export interface PlanetData {
     coordinate: Coordinate
 }
+
+export interface PlayerData {
+    name: string
+}
+
 // States
 export interface RootState {
     servername: string
@@ -28,18 +33,29 @@ export interface LogState {
     planets: Array<PlanetData>
 }
 
+export interface PlayerState {
+    players: Set<PlayerData>
+}
+
 export interface CombinedRootState extends RootState {
     logStore: LogState;
 }
 
 // Mutation types
 
-export const PUSH_LOG = 'PUSH_LOG';
-export const PUSH_CHAT = 'PUSH_CHAT';
-export const PUSH_INFO = 'PUSH_INFO';
 export const PUSH_PLANET = 'PUSH_PLANET';
 export const POP_PLANET = 'POP_PLANET';
+
+export const PUSH_CHAT = 'PUSH_CHAT';
+
+export const PUSH_INFO = 'PUSH_INFO';
+
+export const PUSH_LOG = 'PUSH_LOG';
 export const PARSE_LOG = 'PARSE_LOG';
+
+export const UPDATE_PLYAERS = 'UPDATE_PLAYERS';
+export const PUSH_PLYAER = 'PUSH_PLYAER';
+export const POP_PLYAER = 'POP_PLYAER';
 
 export const REQUEST_NOTIFICATION_PERMISSION = 'REQUEST_NOTIFICATION_PERMISSION';
 export const UPDATE_NOTIFICATION_PERMISSION = 'UPDATE_NOTIFICATION_PERMISSION';
@@ -71,6 +87,14 @@ export interface PlanetPopMutationPayload {
     data: PlanetData
 }
 
+export interface PlayerUpdateMutationPayload {
+    data: Set<PlayerData>
+}
+export interface PlayerPushMutationPayload {
+    data: PlayerData
+}
+export type PlayerPopMutationPayload = PlayerPushMutationPayload;
+
 // Getters
 
 export interface LogGetters {
@@ -80,3 +104,12 @@ export interface LogGetters {
 // Utils
 
 export type mapGettersMixin < T > = { [K in keyof T]: () => T[K] };
+
+// Server response
+
+export interface PlayerResponse {
+    index: number,
+    name: string,
+    duration: number
+    score: number
+}

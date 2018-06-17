@@ -1,16 +1,44 @@
 <template lang="pug">
   .home
-    ChatView
+    .left
+      PlayerView
+    .right
+      ChatView
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ChatView from '@/components/ChatView.vue'; // @ is an alias to /src
+import ChatView from '@/components/ChatView.vue';
+import PlayerView from '@/components/PlayerView.vue';
 
 @Component({
   components: {
-  ChatView
+  ChatView,
+  PlayerView
   }
   })
 export default class Home extends Vue {}
 </script>
+
+<style lang="scss">
+.home {
+  width: 100%;
+  .left {
+    flex: 0.2 1 auto;
+    padding: 0.5em;
+  }
+  .right {
+    flex: 1 0.1 auto;
+    padding: 0.5em;
+  }
+}
+
+@media (min-width: 800px) {
+  .home {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    overflow: hidden;
+  }
+}
+</style>
