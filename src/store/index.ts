@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { DefaultComputed } from 'vue/types/options';
 import Vuex, { mapState } from 'vuex';
-import { RootState, LogParseActionPayload, PARSE_LOG, REQUEST_NOTIFICATION_PERMISSION, UPDATE_NOTIFICATION_PERMISSION } from '@/interface';
+import { RootState, LogParseActionPayload, PARSE_LOG, REQUEST_NOTIFICATION_PERMISSION, UPDATE_NOTIFICATION_PERMISSION, UPDATE_PLYAERS } from '@/interface';
 import { getDataFromAppElement } from '@/datatools';
 import logStore from './log';
 import playerStore from './player';
@@ -39,7 +39,7 @@ const store = new Vuex.Store<RootState>({
   },
 });
 
-type stateMap < T > = { [name in keyof T]: () => T[name] };
+type stateMap<T> = { [name in keyof T]: () => T[name] };
 
 interface RootComputedMixin extends DefaultComputed, stateMap<RootState> { }
 
@@ -54,6 +54,7 @@ function initStore() {
     const payload: LogParseActionPayload = { data: log, isInit: true };
     store.dispatch(PARSE_LOG, payload);
   });
+  store.dispatch(UPDATE_PLYAERS)
 }
 
 initStore();
