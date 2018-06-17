@@ -1,6 +1,7 @@
 """Log file readers.  """
 import asyncio
 import re
+import os
 from collections import namedtuple
 import logging
 LOGGER = logging.getLogger(__name__)
@@ -29,25 +30,23 @@ async def log_iterator(logfile, is_forever=False, is_from_end=False):
         is_forever (bool, optional): Defaults to False. If `is_forever` is `True`,
             iteration will never finish(wait for new logs).
     """
-
-    with open(logfile, encoding='utf-8') as f:
-        if is_from_end:
-            f.seek(0, 2)
-        while True:
-            pos = f.tell()
+    pos = 0
+    if is_from_end:
+        pos = os.path.getsize(logfile)
+    while True:
+        with open(logfile, encoding='utf-8') as f:
+            f.seek(min(pos, os.path.getsize(logfile)))
             LOGGER.debug('File position: %s', pos)
             line = f.readline()
-            if line:
-                data = line.strip()
-                if data:
-                    yield data
-            elif is_forever:
-                # File may become smaller
-                f.seek(0, 2)
-                f.seek(min(pos, f.tell()))
-                await asyncio.sleep(1)
-            else:
-                return
+            pos = f.tell()
+        if line:
+            data = line.strip()
+            if data:
+                yield data
+        elif is_forever:
+            await asyncio.sleep(1)
+        else:
+            return
 
 ChatData = namedtuple('ChatData', ('timestamp', 'user', 'message'))
 
