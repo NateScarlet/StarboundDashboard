@@ -76,8 +76,8 @@ function matchChatData(context: ActionContext<LogState, RootState>, data: string
       event,
     };
     context.commit(PUSH_LOG_EVENT, payload);
-    if (!isInit && isSupportNotify) {
-      new Notify(event.player, { body: event.message, timeout: isMobile ? 60 : 3, tag: JSON.stringify(event) }).show();
+    if (!isInit) {
+      showNotify(event.player, event.message, JSON.stringify(event));
     }
   }
 }
@@ -98,6 +98,7 @@ function matchDisconnectData(context: ActionContext<LogState, RootState>, data: 
     context.commit(PUSH_LOG_EVENT, payload);
     if (!isInit) {
       context.dispatch(UPDATE_PLYAERS);
+      showNotify(`Starbound@${document.location.hostname}`, `${event.player}离开了游戏`, JSON.stringify(event));
     }
   }
 }
@@ -117,8 +118,16 @@ function matchConnectEvent(context: ActionContext<LogState, RootState>, data: st
     context.commit(PUSH_LOG_EVENT, payload);
     if (!isInit) {
       context.dispatch(UPDATE_PLYAERS);
+      showNotify(`Starbound@${document.location.hostname}`, `${event.player}加入了游戏`, JSON.stringify(event));
     }
   }
+}
+
+function showNotify(title: string, message: string, tag: string) {
+  if (!isSupportNotify) {
+    return;
+  }
+  new Notify(title, { body: message, timeout: isMobile ? 60 : 3, tag }).show();
 }
 
 const module: Module<LogState, RootState> = {
