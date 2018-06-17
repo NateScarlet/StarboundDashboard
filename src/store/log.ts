@@ -10,7 +10,7 @@ import {
 } from 'vuex';
 import Notify from 'notifyjs';
 import { LogState, RootState, PARSE_LOG, LogParseActionPayload, PUSH_LOG, LogPushMutationPayload, ChatPushMutationPayload, PUSH_CHAT, mapGettersMixin, LogGetters, ChatData } from '@/interface';
-import { isSupportNotify } from '@/constant';
+import { isSupportNotify, isMobile } from '@/constant';
 
 const state: LogState = {
   logs: [],
@@ -61,7 +61,7 @@ const actions: ActionTree<LogState, RootState> = {
       };
       context.commit(PUSH_CHAT, chatPayload);
       if (!payload.isInit && isSupportNotify) {
-        new Notify(chatdata.user, { body: chatdata.message, timeout: 2, tag: JSON.stringify(chatdata) }).show();
+        new Notify(chatdata.user, { body: chatdata.message, timeout: isMobile ? 60 : 3, tag: JSON.stringify(chatdata), }).show();
       }
     }
   },
