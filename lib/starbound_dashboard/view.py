@@ -6,7 +6,6 @@ from jinja2 import Undefined
 from quart import render_template
 
 from .core import APP
-from .query import players, server_querier
 from .watcher import log_iterator
 
 
@@ -23,8 +22,6 @@ async def index():
 
     context['logs'] = context['logs'][-100:]
 
-    with server_querier() as server:
-        context['players'] = players(server)
     return await render_template('index.html', **context)
 
 

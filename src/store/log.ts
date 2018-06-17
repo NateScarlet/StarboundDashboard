@@ -6,16 +6,17 @@ import {
   GetterTree,
   mapGetters,
   mapState,
-  ActionContext
+  ActionContext,
 } from 'vuex';
-
-import { LogState, RootState, PARSE_LOG, LogParseActionPayload, PUSH_LOG, LogPushMutationPayload, ChatPushMutationPayload, PUSH_CHAT, mapGettersMixin, LogGetters } from '@/interface';
+import Notify from 'notifyjs';
+import { LogState, RootState, PARSE_LOG, LogParseActionPayload, PUSH_LOG, LogPushMutationPayload, ChatPushMutationPayload, PUSH_CHAT, mapGettersMixin, LogGetters, ChatData } from '@/interface';
+import { isSupportNotify } from '@/constant';
 
 const state: LogState = {
   logs: [],
   chats: [],
   infos: [],
-  planets: []
+  planets: [],
 };
 
 const getters: GetterTree<LogState, RootState> = {
@@ -29,7 +30,7 @@ interface LogComputedMixin
 
 export const logComputedMinxin = {
   ...mapState(['logStore']),
-  ...mapGetters(Object.keys(getters))
+  ...mapGetters(Object.keys(getters)),
 } as LogComputedMixin;
 
 const mutations: MutationTree<LogState> = {
@@ -38,7 +39,7 @@ const mutations: MutationTree<LogState> = {
   },
   [PUSH_CHAT](contextState, payload: ChatPushMutationPayload) {
     contextState.chats.push(payload.data);
-  }
+  },
 
 };
 
@@ -49,22 +50,27 @@ const actions: ActionTree<LogState, RootState> = {
     context.commit(PUSH_LOG, logPayload);
     const match = data.match(/\[(.+)\] \[Info\] Chat: <(.*)> (.+)/);
     if (match) {
+      const chatdata: ChatData = {
+        time: match[1],
+        user: match[2],
+        message: match[3],
+        lineno: context.state.logs.length + 1,
+      };
       const chatPayload: ChatPushMutationPayload = {
-        data: {
-          time: match[1],
-          user: match[2],
-          message: match[3]
-        }
+        data: chatdata,
       };
       context.commit(PUSH_CHAT, chatPayload);
+      if (!payload.isInit && isSupportNotify) {
+        new Notify(chatdata.user, { body: chatdata.message, timeout: 2, tag: JSON.stringify(chatdata) }).show();
+      }
     }
-  }
+  },
 };
 
 const module: Module<LogState, RootState> = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };
 export default module;

@@ -3,6 +3,7 @@ export interface ChatData {
     user: string
     time: string
     message: string
+    lineno: number
 }
 
 export type InfoData = ChatData;
@@ -18,9 +19,8 @@ export interface PlanetData {
 export interface RootState {
     servername: string
     maxplayers: string
-
+    isNotifyEnabled: boolean
 }
-
 export interface LogState {
     logs: Array<string>;
     chats: Array<ChatData>;
@@ -41,9 +41,13 @@ export const PUSH_PLANET = 'PUSH_PLANET';
 export const POP_PLANET = 'POP_PLANET';
 export const PARSE_LOG = 'PARSE_LOG';
 
+export const REQUEST_NOTIFICATION_PERMISSION = 'REQUEST_NOTIFICATION_PERMISSION';
+export const UPDATE_NOTIFICATION_PERMISSION = 'UPDATE_NOTIFICATION_PERMISSION';
+
 // Action payloads
 export interface LogParseActionPayload {
-    data: string
+    data: string,
+    isInit?: boolean,
 }
 
 // Mutations payloads

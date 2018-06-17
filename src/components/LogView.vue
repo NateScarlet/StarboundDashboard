@@ -9,8 +9,8 @@ import { logComputedMinxin } from '@/store/log';
 
 export default Vue.extend({
   computed: {
-    ...logComputedMinxin
-  }
+    ...logComputedMinxin,
+  },
 });
 </script>
 

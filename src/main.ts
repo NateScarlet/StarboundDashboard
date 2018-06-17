@@ -4,12 +4,14 @@ import router from './router';
 import store from './store';
 import WebSocketHub from '@/websocket';
 
+import 'element-ui/lib/theme-chalk/index.css';
+
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app');
 
 const websockethub = new WebSocketHub(store);

@@ -1,7 +1,7 @@
 import { Store } from 'vuex';
 import { PARSE_LOG, LogParseActionPayload, RootState } from '@/interface';
 
-const WEBSOCKET_PROTOCOL = location.protocol === 'https:' ? 'wss:' : 'ws:'
+const WEBSOCKET_PROTOCOL = location.protocol === 'https:' ? 'wss:' : 'ws:';
 export default class WebSocketHub {
   constructor(private store: Store<RootState>) {
 

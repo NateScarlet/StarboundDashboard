@@ -7,8 +7,8 @@ module.exports = {
     config.plugin('html')
       .use(htmlPlugin, [{
         template: 'public/templates/index.html',
-        filename: 'templates/index.html'
-      }]);
+        filename: 'templates/index.html',
+      } ]);
     config
       .devServer
       .publicPath('static/');
@@ -18,8 +18,8 @@ module.exports = {
     proxy: {
       '/': {
         target: 'http://localhost:5001',
-        ws: true
-      }
-    }
-  }
+        ws: true,
+      },
+    },
+  },
 };
