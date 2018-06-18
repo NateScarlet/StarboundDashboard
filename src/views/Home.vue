@@ -24,7 +24,7 @@ export default class Home extends Vue {}
 .home {
   width: 100%;
   .left {
-    flex: 0.2 1 auto;
+    flex: 0 1 15em;
     padding: 0.5em;
   }
   .right {

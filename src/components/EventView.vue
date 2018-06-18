@@ -103,8 +103,10 @@ export default Vue.extend({
       flex: 0 1 auto;
       padding: 0.2em 0;
     }
-    .reason {
+    .right {
       flex: auto;
+      text-align: right;
+      word-break: break-all;
     }
     .playerId::before {
       content: "玩家ID:";
