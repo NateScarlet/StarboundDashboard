@@ -11,13 +11,16 @@
         span.left
           span.time {{i.time}}
           span.playerId {{i.playerId}}
-        span.player {{i.player}}
-        span.reason(v-show='i.reason') {{i.reason}}
+        span.center
+          span.player {{i.player}}
+        span.right
+          span.reason(v-show='i.reason') {{i.reason}}
       .event.connect(v-for='i in logStore.events.connect' :key='i.lineno' :style='{order: i.lineno}')
         span.left
           span.time {{i.time}}
           span.playerId {{i.playerId}}
-        span.player {{i.player}}
+        span.center
+          span.player {{i.player}}
 </template>
 
 <script lang="ts">
@@ -72,11 +75,7 @@ export default Vue.extend({
     color: grey;
     padding: 0.4em;
   }
-  .reason {
-    position: absolute;
-    right: 0;
-    padding: 0 0.4em;
-  }
+
   .event {
     padding: 0.4em 0;
   }
@@ -87,6 +86,7 @@ export default Vue.extend({
       margin: 0 0.2em;
     }
     .message {
+      display: inline-block;
       background: #eee;
       border-radius: 0.5em;
       padding: 0.2em 0.5em;
@@ -96,11 +96,15 @@ export default Vue.extend({
   .disconnect {
     color: gray;
     text-align: center;
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     .left {
-      position: absolute;
-      left: 0;
-      padding: 0;
+      flex: 0 1 auto;
+      padding: 0.2em 0;
+    }
+    .reason {
+      flex: auto;
     }
     .playerId::before {
       content: "玩家ID:";
@@ -121,16 +125,19 @@ export default Vue.extend({
     }
   }
   .connect {
-    &:after {
+    .player:after {
       content: "加入";
       color: lightgreen;
     }
   }
   .disconnect {
-    &:after {
+    .player:after {
       content: "离开";
       color: lightpink;
     }
   }
+}
+
+@media (max-width: 400px) {
 }
 </style>

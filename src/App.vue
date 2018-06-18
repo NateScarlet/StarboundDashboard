@@ -37,4 +37,10 @@
     }
   }
 }
+@media (max-width: 400px) {
+  #app {
+    width: 100vw;
+    left: 0;
+  }
+}
 </style>
