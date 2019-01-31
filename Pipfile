@@ -17,4 +17,3 @@ pytest-asyncio = "*"
 
 python-valve = "*"
 quart = "*"
-"05d785b" = {file = "https://gitlab.com/pgjones/quart/-/archive/master/quart-master.tar.gz"}
