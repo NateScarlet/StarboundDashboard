@@ -1,5 +1,7 @@
 # 星界边境服务器状态揭示板
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/NateScarlet/StarboundDashboard.svg)](https://greenkeeper.io/)
+
 实时根据日志显示星界边境服务器状态
 
 ![intro](intro.png)
